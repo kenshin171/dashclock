@@ -15,9 +15,6 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.nurik.roman.dashclock"
-    android:versionCode="1"
-    android:versionName="See version.properties"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
@@ -66,6 +63,19 @@
     <uses-permission android:name="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA" />
     <uses-permission android:name="com.google.android.apps.dashclock.permission.BIND_DATA_CONSUMER" />
 
+    <queries>
+        <intent>
+            <action android:name="com.google.android.apps.dashclock.Extension" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <package android:name="com.google.android.gm" />
+        <package android:name="com.google.android.deskclock" />
+        <package android:name="com.android.deskclock" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -75,7 +85,8 @@
         android:restoreAnyVersion="true">
 
         <receiver android:name="com.google.android.apps.dashclock.WidgetProvider"
-            android:label="@string/widget_label">
+            android:label="@string/widget_label"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -111,7 +122,8 @@
         <activity-alias
             android:name="com.google.android.apps.dashclock.configuration.ConfigurationLauncherActivity"
             android:targetActivity="com.google.android.apps.dashclock.configuration.ConfigurationActivity"
-            android:enabled="false">
+            android:enabled="false"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -123,7 +135,8 @@
         <activity
             android:name="com.google.android.apps.dashclock.WidgetClickProxyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" />
+            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
+            android:exported="false" />
 
         <!-- built-in extensions -->
 
@@ -131,6 +144,7 @@
             android:name="com.google.android.apps.dashclock.weather.WeatherExtension"
             android:label="@string/weather_extension_title"
             android:icon="@drawable/ic_weather_sunny"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter android:priority="100">
                 <action android:name="com.google.android.apps.dashclock.Extension" />
@@ -145,16 +159,19 @@
                 android:value="com.google.android.apps.dashclock.weather.WeatherSettingsActivity" />
         </service>
 
-        <receiver android:name="com.google.android.apps.dashclock.weather.WeatherRetryReceiver" />
+        <receiver android:name="com.google.android.apps.dashclock.weather.WeatherRetryReceiver"
+            android:exported="false" />
 
         <activity android:name="com.google.android.apps.dashclock.weather.WeatherSettingsActivity"
             android:theme="@style/Theme.ExtensionConfiguration"
-            android:label="@string/title_weather_settings" />
+            android:label="@string/title_weather_settings"
+            android:exported="true" />
 
         <service
             android:name="com.google.android.apps.dashclock.nextalarm.NextAlarmExtension"
             android:icon="@drawable/ic_extension_next_alarm"
             android:label="@string/next_alarm_extension_title"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension" />
@@ -170,12 +187,14 @@
 
         <activity android:name="com.google.android.apps.dashclock.nextalarm.NextAlarmSettingsActivity"
             android:theme="@style/Theme.ExtensionConfiguration"
-            android:label="@string/title_next_alarm_settings" />
+            android:label="@string/title_next_alarm_settings"
+            android:exported="true" />
 
         <service
             android:name="com.google.android.apps.dashclock.gmail.GmailExtension"
             android:icon="@drawable/ic_extension_gmail"
             android:label="@string/gmail_extension_title"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension" />
@@ -191,12 +210,14 @@
 
         <activity android:name="com.google.android.apps.dashclock.gmail.GmailSettingsActivity"
             android:theme="@style/Theme.ExtensionConfiguration"
-            android:label="@string/title_gmail_settings" />
+            android:label="@string/title_gmail_settings"
+            android:exported="true" />
 
         <service
             android:name="com.google.android.apps.dashclock.calendar.CalendarExtension"
             android:icon="@drawable/ic_extension_calendar"
             android:label="@string/calendar_extension_title"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension" />
@@ -212,12 +233,14 @@
 
         <activity android:name="com.google.android.apps.dashclock.calendar.CalendarSettingsActivity"
             android:theme="@style/Theme.ExtensionConfiguration"
-            android:label="@string/title_calendar_settings" />
+            android:label="@string/title_calendar_settings"
+            android:exported="true" />
 
         <service
             android:name="com.google.android.apps.dashclock.phone.MissedCallsExtension"
             android:icon="@drawable/ic_extension_missed_calls"
             android:label="@string/missed_calls_extension_title"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension" />
@@ -233,6 +256,7 @@
             android:name="com.google.android.apps.dashclock.phone.SmsExtension"
             android:icon="@drawable/ic_extension_sms"
             android:label="@string/sms_extension_title"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension" />
@@ -248,7 +272,8 @@
 
         <activity
             android:name="com.google.android.apps.dashclock.configuration.DaydreamProxyActivity"
-            android:theme="@android:style/Theme.NoDisplay" />
+            android:theme="@android:style/Theme.NoDisplay"
+            android:exported="true" />
 
         <!--suppress AndroidLintExportedService -->
         <service
@@ -286,7 +311,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"/>
 
-        <receiver android:name="com.google.android.apps.dashclock.ExtensionPackageChangeReceiver">
+        <receiver android:name="com.google.android.apps.dashclock.ExtensionPackageChangeReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_CHANGED" />
@@ -300,6 +326,7 @@
             android:exported="false" />
 
         <receiver android:name="com.google.android.apps.dashclock.MultiplexerOnlyModeReceiver"
+            android:exported="true"
             android:permission="com.google.android.apps.dashclock.permission.BIND_DATA_CONSUMER">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.action.MULTIPLEXER_ONLY_MODE" />

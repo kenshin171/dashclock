@@ -16,6 +16,7 @@
 
 package com.google.android.apps.dashclock.api.internal;
 
+import android.content.ComponentName;
 import com.google.android.apps.dashclock.api.ExtensionData;
 import com.google.android.apps.dashclock.api.host.ExtensionListing;
 
@@ -36,5 +37,5 @@ interface IDataConsumerHostCallback {
      *
      * @param extensions the list of the current available {@link ExtensionListing} classes.
      */
-    oneway void notifyAvailableExtensionChanged(in List<ExtensionListing> extensions, in boolean nonWorldReadableExtensionsVisible);
+    oneway void notifyAvailableExtensionChanged(in List<ExtensionListing> extensions, boolean nonWorldReadableExtensionsVisible);
 }

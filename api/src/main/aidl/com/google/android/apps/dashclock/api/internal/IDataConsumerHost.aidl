@@ -42,7 +42,7 @@ interface IDataConsumerHost {
      * @param cb  Callback to invoke on extension data changes or changes to the
      *           list of available extensions.
      */
-    oneway void listenTo(in List<ComponentName> extensions, in IDataConsumerHostCallback cb);
+    oneway void listenTo(in List<ComponentName> extensions, IDataConsumerHostCallback cb);
 
     /**
      * Opens the associated settings of the passed in extension.
@@ -51,7 +51,7 @@ interface IDataConsumerHost {
      * @param extension The extension to open the settings for.
      * @param cb A registered callback passed to {@code #listenTo()}.
      */
-    oneway void showExtensionSettings(in ComponentName extension, in IDataConsumerHostCallback cb);
+    oneway void showExtensionSettings(in ComponentName extension, IDataConsumerHostCallback cb);
 
     /**
      * Request an update of all the passed in extensions.
@@ -61,7 +61,7 @@ interface IDataConsumerHost {
      * @param cb A registered callback passed to {@code #listenTo()}.
      */
     oneway void requestExtensionUpdate(in List<ComponentName> extensions,
-            in IDataConsumerHostCallback cb);
+            IDataConsumerHostCallback cb);
 
     /**
      * Get a list of available installed extensions.

@@ -31,7 +31,7 @@ interface IExtension {
      * - Do NOT modify a signature once a protocol version is finalized.
      */
     // Protocol version 1 below
-    oneway void onInitialize(in IExtensionHost host, boolean isReconnect);
+    oneway void onInitialize(IExtensionHost host, boolean isReconnect);
     oneway void onUpdate(int reason);
     // Protocol version 2 below
 }
